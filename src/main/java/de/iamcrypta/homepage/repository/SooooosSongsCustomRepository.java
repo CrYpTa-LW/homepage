@@ -8,5 +8,5 @@ public interface SooooosSongsCustomRepository {
 
     List<SooooosSongs> findSongsNotInTemp();
 
-    List<SooooosSongs> findTempSongsNotInSongs()
+    List<SooooosSongs> findTempSongsNotInSongs();
 }
