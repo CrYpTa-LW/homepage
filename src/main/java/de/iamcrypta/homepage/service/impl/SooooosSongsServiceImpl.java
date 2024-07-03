@@ -1,5 +1,6 @@
 package de.iamcrypta.homepage.service.impl;
 
+import de.iamcrypta.homepage.dto.SooooosSongDTO;
 import de.iamcrypta.homepage.model.SooooosSong;
 import de.iamcrypta.homepage.repository.SooooosSongsRepository;
 import de.iamcrypta.homepage.repository.SooooosSongsTempRepository;
@@ -7,6 +8,7 @@ import de.iamcrypta.homepage.service.SooooosSongsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,17 +24,37 @@ public class SooooosSongsServiceImpl implements SooooosSongsService {
     }
 
     @Override
-    public List<SooooosSong> getAllDeletedSongs() {
-        return sooooosSongsRepository.findSongsNotInTemp();
+    public List<SooooosSongDTO> getAllDeletedSongs() {
+        List<SooooosSong> sooooosSongs = sooooosSongsRepository.findSongsNotInTemp();
+        return convertAllSooooosSongToSooooosSongDto(sooooosSongs);
     }
 
     @Override
-    public List<SooooosSong> getAllAddedSongs() {
-        return sooooosSongsRepository.findTempSongsNotInSongs();
+    public List<SooooosSongDTO> getAllAddedSongs() {
+        List<SooooosSong> sooooosSongs = sooooosSongsRepository.findTempSongsNotInSongs();
+        return convertAllSooooosSongToSooooosSongDto(sooooosSongs);
+    }
+
+    private SooooosSongDTO convertSooooosSongToSooooosSongDto(SooooosSong song){
+        return new SooooosSongDTO(song.getAddedBy(),
+                                  song.getDateAdded(),
+                                  song.isLocalTrack(),
+                                  song.getDurationMs(),
+                                  song.getSongName(),
+                                  song.getSpotifyExternalUrl(),
+                                  song.getSpotifySongId());
+    }
+
+    private List<SooooosSongDTO> convertAllSooooosSongToSooooosSongDto(List<SooooosSong> songs){
+        List<SooooosSongDTO> dtos = new ArrayList<>();
+        for(SooooosSong song: songs){
+            dtos.add(convertSooooosSongToSooooosSongDto(song));
+        }
+        return dtos;
     }
 
     @Override
-    public void saveAllSooooosTemp(List<SooooosSong> s) {
+    public void saveAllSooooosTemp(List<SooooosSongDTO> s) {
 
     }
 
