@@ -1,6 +1,6 @@
 package de.iamcrypta.homepage.controller;
 
-import de.iamcrypta.homepage.model.SooooosSongs;
+import de.iamcrypta.homepage.model.SooooosSong;
 import de.iamcrypta.homepage.service.SooooosSongsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,7 @@ public class TestController {
 
     @GetMapping(path = "/test")
     public String test(){
-        List<SooooosSongs> s = sooooosSongsService.getAllDeletedSongs();
+        List<SooooosSong> s = sooooosSongsService.getAllDeletedSongs();
         return s.toString();
     }
 }

@@ -1,7 +1,7 @@
 package de.iamcrypta.homepage.repository;
 
-import de.iamcrypta.homepage.model.SooooosSongsChange;
+import de.iamcrypta.homepage.model.SooooosSongChange;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SooooosSongsChangeRepository extends JpaRepository<SooooosSongsChange, Long> {
+public interface SooooosSongsChangeRepository extends JpaRepository<SooooosSongChange, Long> {
 }
