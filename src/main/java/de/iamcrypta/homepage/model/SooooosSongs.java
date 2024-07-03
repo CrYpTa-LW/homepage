@@ -2,7 +2,7 @@ package de.iamcrypta.homepage.model;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.OffsetDateTime;
 
 @Entity
 @Table(name = "sooooos_songs")
@@ -17,7 +17,7 @@ public class SooooosSongs {
     private String addedBy;
 
     @Column(name = "date_added", nullable = false)
-    private Date dateAdded;
+    private OffsetDateTime dateAdded;
 
     @Column(name = "is_local_track", nullable = false)
     private boolean isLocalTrack;
@@ -37,7 +37,7 @@ public class SooooosSongs {
     public SooooosSongs() {
     }
 
-    public SooooosSongs(String addedBy, Date dateAdded, boolean isLocalTrack, int durationMs, String songName, String spotifyExternalUrl, String spotifySongId) {
+    public SooooosSongs(String addedBy, OffsetDateTime dateAdded, boolean isLocalTrack, int durationMs, String songName, String spotifyExternalUrl, String spotifySongId) {
         this.addedBy = addedBy;
         this.dateAdded = dateAdded;
         this.isLocalTrack = isLocalTrack;
@@ -59,11 +59,11 @@ public class SooooosSongs {
         this.addedBy = addedBy;
     }
 
-    public Date getDateAdded() {
+    public OffsetDateTime getDateAdded() {
         return dateAdded;
     }
 
-    public void setDateAdded(Date dateAdded) {
+    public void setDateAdded(OffsetDateTime dateAdded) {
         this.dateAdded = dateAdded;
     }
 
