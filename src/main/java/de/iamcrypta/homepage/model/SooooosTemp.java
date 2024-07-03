@@ -1,13 +1,12 @@
 package de.iamcrypta.homepage.model;
 
-import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 
 import java.util.Date;
 
 @Entity
-@Table(name = "sooooos_songs_change")
-public class SooooosSongsChange {
+@Table(name = "sooooos_temp")
+public class SooooosTemp {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,16 +34,10 @@ public class SooooosSongsChange {
     @Column(name = "spotify_song_id", nullable = false)
     private String spotifySongId;
 
-    @Column(name = "is_deleted", nullable = false)
-    private boolean isDeleted;
-
-    @Column(name = "is_added", nullable = false)
-    private boolean isAdded;
-
-    public SooooosSongsChange() {
+    public SooooosTemp() {
     }
 
-    public SooooosSongsChange(String addedBy, Date dateAdded, boolean isLocalTrack, int durationMs, String songName, String spotifyExternalUrl, String spotifySongId, boolean isDeleted, boolean isAdded) {
+    public SooooosTemp(String addedBy, Date dateAdded, boolean isLocalTrack, int durationMs, String songName, String spotifyExternalUrl, String spotifySongId) {
         this.addedBy = addedBy;
         this.dateAdded = dateAdded;
         this.isLocalTrack = isLocalTrack;
@@ -52,8 +45,6 @@ public class SooooosSongsChange {
         this.songName = songName;
         this.spotifyExternalUrl = spotifyExternalUrl;
         this.spotifySongId = spotifySongId;
-        this.isDeleted = isDeleted;
-        this.isAdded = isAdded;
     }
 
     public Long getId() {
@@ -116,25 +107,9 @@ public class SooooosSongsChange {
         this.spotifySongId = spotifySongId;
     }
 
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
-    }
-
-    public boolean isAdded() {
-        return isAdded;
-    }
-
-    public void setAdded(boolean added) {
-        isAdded = added;
-    }
-
     @Override
     public String toString() {
-        return "SooooosSongsChange{" +
+        return "SooooosTemp{" +
                 "id=" + id +
                 ", addedBy='" + addedBy + '\'' +
                 ", dateAdded=" + dateAdded +
@@ -143,8 +118,6 @@ public class SooooosSongsChange {
                 ", songName='" + songName + '\'' +
                 ", spotifyExternalUrl='" + spotifyExternalUrl + '\'' +
                 ", spotifySongId='" + spotifySongId + '\'' +
-                ", isDeleted=" + isDeleted +
-                ", isAdded=" + isAdded +
                 '}';
     }
 }
