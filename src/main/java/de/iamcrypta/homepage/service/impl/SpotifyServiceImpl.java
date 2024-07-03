@@ -57,6 +57,7 @@ public class SpotifyServiceImpl implements SpotifyService {
                 .getPlaylist(playlistId)
                 .build();
 
+        // Create return playlist
         Playlist playlist = null;
 
         try {
@@ -72,9 +73,13 @@ public class SpotifyServiceImpl implements SpotifyService {
         // TODO: Maybe check if one hour has passed before refreshing?
         refreshAccessToken();
 
+        // Create return list
         List<PlaylistTrack> fullPlaylist = new ArrayList<PlaylistTrack>();
 
+        // Create string for next paging url
         String next = "";
+
+        // Create counter for offset of api call.
         int i = 0;
         do {
             // Create a playlist request
@@ -82,16 +87,20 @@ public class SpotifyServiceImpl implements SpotifyService {
                     .getPlaylistsItems(playlistId)
                     .offset(i)
                     .build();
-
-            // Execute request
             try {
+                // Execute request
                 Paging<PlaylistTrack> playlistTrackPaging = getPlaylistsItemsRequest.execute();
 
+                //Get items out of paging object
                 PlaylistTrack[] arrayPlaylistTracks = playlistTrackPaging.getItems();
+
                 // Convert Array to List and add to fullplaylist list
                 fullPlaylist.addAll(Arrays.asList(arrayPlaylistTracks));
 
+                // Get next api url to check if null --> End of playlist
                 next = playlistTrackPaging.getNext();
+
+                // Increment the offset by 100
                 i+=100;
             } catch (IOException | SpotifyWebApiException | ParseException e) {
                 System.out.println("Error: " + e.getMessage());

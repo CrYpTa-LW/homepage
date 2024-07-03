@@ -11,7 +11,7 @@ import java.util.List;
 public interface SpotifyService {
 
     /**
-     * Funkcion that calls the spotify api and returns a playlist for given id
+     * Function that calls the spotify api and returns a playlist for given id
      * @param playlistId
      * @return a playlist object
      */
@@ -20,7 +20,7 @@ public interface SpotifyService {
     /**
      * Function that calls the spotify api and returns all tracks of a playlist
      * @param playlistId
-     * @return
+     * @return List of playlist tracks
      */
     public List<PlaylistTrack> getPlaylistTracks(String playlistId);
 }
