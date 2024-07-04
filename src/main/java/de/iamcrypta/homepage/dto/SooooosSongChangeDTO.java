@@ -1,51 +1,23 @@
-package de.iamcrypta.homepage.model;
+package de.iamcrypta.homepage.dto;
 
-import jakarta.persistence.*;
-
+import java.time.OffsetDateTime;
 import java.util.Date;
 
-@Entity
-@Table(name = "sooooos_songs_change")
-public class SooooosSongChange {
+public class SooooosSongChangeDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
-
-    @Column(name = "added_by", nullable = false)
     private String addedBy;
-
-    @Column(name = "change_occurred_at", nullable = false)
     private Date changeOccurredAt;
-
-    @Column(name = "is_local_track", nullable = false)
     private boolean isLocalTrack;
-
-    @Column(name = "duration_ms", nullable = false)
     private int durationMs;
-
-    @Column(name = "song_name", nullable = false)
     private String songName;
-
-    @Column(name = "spotify_external_url", nullable = false)
     private String spotifyExternalUrl;
-
-    @Column(name = "spotify_song_id", nullable = false)
     private String spotifySongId;
-
-    @Column(name = "is_deleted", nullable = false)
     private boolean isDeleted;
-
-    @Column(name = "is_added", nullable = false)
     private boolean isAdded;
 
-    public SooooosSongChange() {
-    }
-
-    public SooooosSongChange(String addedBy, boolean isLocalTrack, int durationMs, String songName, String spotifyExternalUrl, String spotifySongId, boolean isDeleted, boolean isAdded) {
+    public SooooosSongChangeDTO(String addedBy, Date changeOccurredAt, boolean isLocalTrack, int durationMs, String songName, String spotifyExternalUrl, String spotifySongId, boolean isDeleted, boolean isAdded) {
         this.addedBy = addedBy;
-        this.changeOccurredAt = new Date();
+        this.changeOccurredAt = changeOccurredAt;
         this.isLocalTrack = isLocalTrack;
         this.durationMs = durationMs;
         this.songName = songName;
@@ -53,10 +25,6 @@ public class SooooosSongChange {
         this.spotifySongId = spotifySongId;
         this.isDeleted = isDeleted;
         this.isAdded = isAdded;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getAddedBy() {
@@ -71,11 +39,15 @@ public class SooooosSongChange {
         return changeOccurredAt;
     }
 
-    public boolean getIsLocalTrack() {
+    public void setChangeOccurredAt(Date changeOccurredAt) {
+        this.changeOccurredAt = changeOccurredAt;
+    }
+
+    public boolean isLocalTrack() {
         return isLocalTrack;
     }
 
-    public void setIsLocalTrack(boolean localTrack) {
+    public void setLocalTrack(boolean localTrack) {
         isLocalTrack = localTrack;
     }
 
@@ -111,27 +83,26 @@ public class SooooosSongChange {
         this.spotifySongId = spotifySongId;
     }
 
-    public boolean getIsDeleted() {
+    public boolean isDeleted() {
         return isDeleted;
     }
 
-    public void setIsDeleted(boolean deleted) {
+    public void setDeleted(boolean deleted) {
         isDeleted = deleted;
     }
 
-    public boolean getIsAdded() {
+    public boolean isAdded() {
         return isAdded;
     }
 
-    public void setIsAdded(boolean added) {
+    public void setAdded(boolean added) {
         isAdded = added;
     }
 
     @Override
     public String toString() {
-        return "SooooosSongsChange{" +
-                "id=" + id +
-                ", addedBy='" + addedBy + '\'' +
+        return "SooooosSongChangeDTO{" +
+                "addedBy='" + addedBy + '\'' +
                 ", changeOccurredAt=" + changeOccurredAt +
                 ", isLocalTrack=" + isLocalTrack +
                 ", durationMs=" + durationMs +
