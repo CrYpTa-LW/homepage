@@ -1,7 +1,9 @@
 package de.iamcrypta.homepage.mapper;
 
+import de.iamcrypta.homepage.dto.SooooosSongChangeDTO;
 import de.iamcrypta.homepage.dto.SooooosSongDTO;
 import de.iamcrypta.homepage.model.SooooosSong;
+import de.iamcrypta.homepage.model.SooooosSongChange;
 import de.iamcrypta.homepage.model.SooooosTemp;
 import org.springframework.stereotype.Component;
 
@@ -62,5 +64,26 @@ public class SooooosSongMapper {
             songs.add(convertSooooosSongDtoToSooooosTemp(dto));
         }
         return songs;
+    }
+
+    public SooooosSongChangeDTO convertSooooosSongChangeToSoooooSongChangeDto(SooooosSongChange change){
+        return new SooooosSongChangeDTO(change.getAddedBy(),
+                                        change.getChangeOccurredAt(),
+                                        change.getIsLocalTrack(),
+                                        change.getDurationMs(),
+                                        change.getSongName(),
+                                        change.getSpotifyExternalUrl(),
+                                        change.getSpotifySongId(),
+                                        change.getIsDeleted(),
+                                        change.getIsAdded()
+                                        );
+    }
+
+    public List<SooooosSongChangeDTO> convertAllSooooosSongChangeToSoooooSongChangeDto(List<SooooosSongChange> changes){
+        List<SooooosSongChangeDTO> dtos = new ArrayList<>();
+        for(SooooosSongChange change: changes){
+            dtos.add(convertSooooosSongChangeToSoooooSongChangeDto(change));
+        }
+        return dtos;
     }
 }
