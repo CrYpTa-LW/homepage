@@ -1,10 +1,9 @@
 package de.iamcrypta.homepage.controller;
 
-import de.iamcrypta.homepage.dto.SooooosSongChangeDTO;
-import de.iamcrypta.homepage.dto.SooooosSongDTO;
-import de.iamcrypta.homepage.mapper.SooooosSongMapper;
-import de.iamcrypta.homepage.model.SooooosSongChange;
-import de.iamcrypta.homepage.repository.SooooosSongsChangeRepository;
+import de.iamcrypta.homepage.dto.SongChangeDTO;
+import de.iamcrypta.homepage.mapper.SongMapper;
+import de.iamcrypta.homepage.model.SongChange;
+import de.iamcrypta.homepage.repository.SongsChangeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,14 +14,14 @@ import java.util.List;
 public class SpotifyController {
 
     @Autowired
-    SooooosSongsChangeRepository sooooosSongsChangeRepository;
+    SongsChangeRepository songsChangeRepository;
 
     @Autowired
-    SooooosSongMapper sooooosSongMapper;
+    SongMapper songMapper;
 
-    @GetMapping(path = "/getSooooosSongChange")
-    public List<SooooosSongChangeDTO> getSooooosSongChange(){
-        List<SooooosSongChange> sooooosSongChanges= sooooosSongsChangeRepository.findAll();
-        return sooooosSongMapper.convertAllSooooosSongChangeToSoooooSongChangeDto(sooooosSongChanges);
+    @GetMapping(path = "/getSongChange")
+    public List<SongChangeDTO> getSongChange(){
+        List<SongChange> songChanges = songsChangeRepository.findAll();
+        return songMapper.convertAllSongChangesToSongChangeDtos(songChanges);
     }
 }

@@ -1,43 +1,18 @@
-package de.iamcrypta.homepage.model;
-
-import jakarta.persistence.*;
+package de.iamcrypta.homepage.dto;
 
 import java.time.OffsetDateTime;
 
-@Entity
-@Table(name = "sooooos_temp")
-public class SooooosTemp {
+public class SongDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
-
-    @Column(name = "added_by", nullable = false)
     private String addedBy;
-
-    @Column(name = "date_added", nullable = false)
     private OffsetDateTime dateAdded;
-
-    @Column(name = "is_local_track", nullable = false)
     private boolean isLocalTrack;
-
-    @Column(name = "duration_ms", nullable = false)
     private int durationMs;
-
-    @Column(name = "song_name", nullable = false)
     private String songName;
-
-    @Column(name = "spotify_external_url", nullable = false)
     private String spotifyExternalUrl;
-
-    @Column(name = "spotify_song_id", nullable = false)
     private String spotifySongId;
 
-    public SooooosTemp() {
-    }
-
-    public SooooosTemp(String addedBy, OffsetDateTime dateAdded, boolean isLocalTrack, int durationMs, String songName, String spotifyExternalUrl, String spotifySongId) {
+    public SongDTO(String addedBy, OffsetDateTime dateAdded, boolean isLocalTrack, int durationMs, String songName, String spotifyExternalUrl, String spotifySongId) {
         this.addedBy = addedBy;
         this.dateAdded = dateAdded;
         this.isLocalTrack = isLocalTrack;
@@ -45,10 +20,6 @@ public class SooooosTemp {
         this.songName = songName;
         this.spotifyExternalUrl = spotifyExternalUrl;
         this.spotifySongId = spotifySongId;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getAddedBy() {
@@ -109,9 +80,8 @@ public class SooooosTemp {
 
     @Override
     public String toString() {
-        return "SooooosTemp{" +
-                "id=" + id +
-                ", addedBy='" + addedBy + '\'' +
+        return "SongDTO{" +
+                "addedBy='" + addedBy + '\'' +
                 ", dateAdded=" + dateAdded +
                 ", isLocalTrack=" + isLocalTrack +
                 ", durationMs=" + durationMs +

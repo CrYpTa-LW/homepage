@@ -2,11 +2,11 @@ package de.iamcrypta.homepage.model;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.OffsetDateTime;
 
 @Entity
-@Table(name = "sooooos_songs_change")
-public class SooooosSongChange {
+@Table(name = "songs")
+public class Song {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,8 +16,8 @@ public class SooooosSongChange {
     @Column(name = "added_by", nullable = false)
     private String addedBy;
 
-    @Column(name = "change_occurred_at", nullable = false)
-    private Date changeOccurredAt;
+    @Column(name = "date_added", nullable = false)
+    private OffsetDateTime dateAdded;
 
     @Column(name = "is_local_track", nullable = false)
     private boolean isLocalTrack;
@@ -34,25 +34,17 @@ public class SooooosSongChange {
     @Column(name = "spotify_song_id", nullable = false)
     private String spotifySongId;
 
-    @Column(name = "is_deleted", nullable = false)
-    private boolean isDeleted;
-
-    @Column(name = "is_added", nullable = false)
-    private boolean isAdded;
-
-    public SooooosSongChange() {
+    public Song() {
     }
 
-    public SooooosSongChange(String addedBy, boolean isLocalTrack, int durationMs, String songName, String spotifyExternalUrl, String spotifySongId, boolean isDeleted, boolean isAdded) {
+    public Song(String addedBy, OffsetDateTime dateAdded, boolean isLocalTrack, int durationMs, String songName, String spotifyExternalUrl, String spotifySongId) {
         this.addedBy = addedBy;
-        this.changeOccurredAt = new Date();
+        this.dateAdded = dateAdded;
         this.isLocalTrack = isLocalTrack;
         this.durationMs = durationMs;
         this.songName = songName;
         this.spotifyExternalUrl = spotifyExternalUrl;
         this.spotifySongId = spotifySongId;
-        this.isDeleted = isDeleted;
-        this.isAdded = isAdded;
     }
 
     public Long getId() {
@@ -67,15 +59,19 @@ public class SooooosSongChange {
         this.addedBy = addedBy;
     }
 
-    public Date getChangeOccurredAt() {
-        return changeOccurredAt;
+    public OffsetDateTime getDateAdded() {
+        return dateAdded;
     }
 
-    public boolean getIsLocalTrack() {
+    public void setDateAdded(OffsetDateTime dateAdded) {
+        this.dateAdded = dateAdded;
+    }
+
+    public boolean isLocalTrack() {
         return isLocalTrack;
     }
 
-    public void setIsLocalTrack(boolean localTrack) {
+    public void setLocalTrack(boolean localTrack) {
         isLocalTrack = localTrack;
     }
 
@@ -111,35 +107,17 @@ public class SooooosSongChange {
         this.spotifySongId = spotifySongId;
     }
 
-    public boolean getIsDeleted() {
-        return isDeleted;
-    }
-
-    public void setIsDeleted(boolean deleted) {
-        isDeleted = deleted;
-    }
-
-    public boolean getIsAdded() {
-        return isAdded;
-    }
-
-    public void setIsAdded(boolean added) {
-        isAdded = added;
-    }
-
     @Override
     public String toString() {
-        return "SooooosSongsChange{" +
+        return "Song{" +
                 "id=" + id +
                 ", addedBy='" + addedBy + '\'' +
-                ", changeOccurredAt=" + changeOccurredAt +
+                ", dateAdded=" + dateAdded +
                 ", isLocalTrack=" + isLocalTrack +
                 ", durationMs=" + durationMs +
                 ", songName='" + songName + '\'' +
                 ", spotifyExternalUrl='" + spotifyExternalUrl + '\'' +
                 ", spotifySongId='" + spotifySongId + '\'' +
-                ", isDeleted=" + isDeleted +
-                ", isAdded=" + isAdded +
                 '}';
     }
 }
