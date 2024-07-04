@@ -13,3 +13,7 @@ public class HomepageApplication {
 	}
 
 }
+
+/**
+ * TODO: Maybe abstract logic from sooooos to all spotify playlists?? :(
+ */
