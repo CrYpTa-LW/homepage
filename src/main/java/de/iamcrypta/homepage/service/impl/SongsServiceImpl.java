@@ -9,6 +9,7 @@ import de.iamcrypta.homepage.repository.SongsChangeRepository;
 import de.iamcrypta.homepage.repository.SongsRepository;
 import de.iamcrypta.homepage.repository.SongsTempRepository;
 import de.iamcrypta.homepage.service.SongsService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,24 +32,26 @@ public class SongsServiceImpl implements SongsService {
     }
 
     @Override
-    public List<Song> getAllDeletedSongs() {
+    public List<SongDTO> getAllDeletedSongs() {
         return songsRepository.findSongsNotInTemp();
     }
 
     @Override
-    public List<Song> getAllAddedSongs() {
+    public List<SongDTO> getAllAddedSongs() {
         return songsRepository.findTempNotInSongs();
     }
 
     @Override
+    @Transactional
     public void saveAllSongs(List<Song> songs) {
-        songsRepository.saveAllAndFlush(songs);
+        songsRepository.saveAll(songs);
+        songsRepository.flush();
     }
 
     @Override
     public void deleteListOfSongs(List<Song> songs) {
         if(songs != null){
-            songsRepository.deleteAll(songs);
+            songsRepository.deleteAllInBatch(songs);
         }
     }
 
@@ -59,7 +62,7 @@ public class SongsServiceImpl implements SongsService {
 
     @Override
     public void deleteAllSongsTemp() {
-        songsRepository.deleteAll();
+        songsTempRepository.deleteAllInBatch();
     }
 
     @Override

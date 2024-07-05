@@ -1,5 +1,6 @@
 package de.iamcrypta.homepage.service;
 
+import de.iamcrypta.homepage.dto.SongDTO;
 import de.iamcrypta.homepage.model.Song;
 import de.iamcrypta.homepage.model.SongChange;
 import de.iamcrypta.homepage.model.SongTemp;
@@ -14,13 +15,13 @@ public interface SongsService {
      * Gets all songs that got deleted in the playlist
      * @return A list of Songs. Not ordered in any way.
      */
-    List<Song> getAllDeletedSongs();
+    List<SongDTO> getAllDeletedSongs();
 
     /**
      * Gets all songs that got added to the playlist
      * @return A list of Songs. Not ordered in any way.
      */
-    List<Song> getAllAddedSongs();
+    List<SongDTO> getAllAddedSongs();
 
     /**
      * Saves a list of songs in database

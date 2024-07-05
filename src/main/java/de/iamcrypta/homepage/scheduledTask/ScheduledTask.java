@@ -1,5 +1,6 @@
 package de.iamcrypta.homepage.scheduledTask;
 
+import de.iamcrypta.homepage.dto.SongDTO;
 import de.iamcrypta.homepage.mapper.SongMapper;
 import de.iamcrypta.homepage.model.Song;
 import de.iamcrypta.homepage.model.SongTemp;
@@ -54,9 +55,11 @@ public class ScheduledTask {
         logger.info("Put all temp in db");
 
         // Compare temp with songs to get deleted tracks and added tracks
-        List<Song> deletedTracks = songsService.getAllDeletedSongs();
+        List<SongDTO> deletedTracksDTO = songsService.getAllDeletedSongs();
+        List<Song> deletedTracks = songMapper.convertAllSongDtosToSongs(deletedTracksDTO);
         logger.info("Get deleted songs");
-        List<Song> addedTracks = songsService.getAllAddedSongs();
+        List<SongDTO> addedTracksDTO = songsService.getAllAddedSongs();
+        List<Song> addedTracks = songMapper.convertAllSongDtosToSongs(addedTracksDTO);
         logger.info("Get added songs");
 
         // Put deleted and added songs into songs_change database
@@ -69,17 +72,18 @@ public class ScheduledTask {
         List<Song> newAddedTracks = new ArrayList<>();
 
         // TODO: REMOVE. Problem all addedTracks have a 0 as id.
-        /*
+
         for(Song s: addedTracks){
-            newAddedTracks.add(new Song(s.getAddedBy(),
-                    s.getDateAdded(),
-                    s.isLocalTrack(),
-                    s.getDurationMs(),
-                    s.getSongName(),
-                    s.getSpotifyExternalUrl(),
-                    s.getSpotifySongId()));
+            Song newSong = new Song(s.getAddedBy(),
+                                    s.getDateAdded(),
+                                    s.isLocalTrack(),
+                                    s.getDurationMs(),
+                                    s.getSongName(),
+                                    s.getSpotifyExternalUrl(),
+                                    s.getSpotifySongId());
+            newAddedTracks.add(newSong);
         }
-        */
+
 
 
         songsService.saveAllSongs(newAddedTracks);

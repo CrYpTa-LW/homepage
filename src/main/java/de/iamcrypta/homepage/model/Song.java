@@ -1,8 +1,27 @@
 package de.iamcrypta.homepage.model;
 
+import de.iamcrypta.homepage.dto.SongDTO;
 import jakarta.persistence.*;
 
 import java.time.OffsetDateTime;
+
+@NamedNativeQuery(name = "Song.findSongsNotInTemp",
+                query = "SELECT s.added_by as addedBy,s.date_added as dateAdded, s.is_local_track as isLocalTrack, s.duration_ms as durationMs, s.song_name as songName, s.spotify_external_url as spotifyExternalUrl, s.spotify_song_id as spotifySongId FROM songs s EXCEPT SELECT st.added_by,st.date_added, st.is_local_track, st.duration_ms, st.song_name, st.spotify_external_url, st.spotify_song_id FROM songs_temp st",
+                resultSetMapping = "Mapping.SongDTO")
+
+@NamedNativeQuery(name = "Song.findTempNotInSongs",
+                query = "SELECT st.added_by as addedBy,st.date_added as dateAdded, st.is_local_track as isLocalTrack, st.duration_ms as durationMs, st.song_name as songName, st.spotify_external_url as spotifyExternalUrl, st.spotify_song_id as spotifySongId FROM songs_temp st EXCEPT SELECT s.added_by,s.date_added, s.is_local_track, s.duration_ms, s.song_name, s.spotify_external_url, s.spotify_song_id FROM songs s",
+                resultSetMapping = "Mapping.SongDTO")
+
+@SqlResultSetMapping(name = "Mapping.SongDTO",
+                    classes = @ConstructorResult(targetClass = SongDTO.class,
+                              columns = {@ColumnResult(name = "addedBy"),
+                                         @ColumnResult(name = "dateAdded", type = java.time.OffsetDateTime.class),
+                                         @ColumnResult(name = "isLocalTrack"),
+                                         @ColumnResult(name = "durationMs", type = Integer.class),
+                                         @ColumnResult(name = "songName"),
+                                         @ColumnResult(name = "spotifyExternalUrl"),
+                                         @ColumnResult(name = "spotifySongId")}))
 
 @Entity
 @Table(name = "songs")
@@ -35,6 +54,16 @@ public class Song {
     private String spotifySongId;
 
     public Song() {
+    }
+
+    public Song(String spotifySongId, String spotifyExternalUrl, String songName, int durationMs, boolean isLocalTrack, OffsetDateTime dateAdded, String addedBy) {
+        this.spotifySongId = spotifySongId;
+        this.spotifyExternalUrl = spotifyExternalUrl;
+        this.songName = songName;
+        this.durationMs = durationMs;
+        this.isLocalTrack = isLocalTrack;
+        this.dateAdded = dateAdded;
+        this.addedBy = addedBy;
     }
 
     public Song(String addedBy, OffsetDateTime dateAdded, boolean isLocalTrack, int durationMs, String songName, String spotifyExternalUrl, String spotifySongId) {
