@@ -16,4 +16,6 @@ public class HomepageApplication {
 
 /**
  * TODO: Maybe abstract logic from sooooos to all spotify playlists?? :(
+ * TODO: Check of all autowire is passed through constructor
+ * TODO: Check for null on various places when saving to databases
  */

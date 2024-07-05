@@ -6,13 +6,15 @@ import de.iamcrypta.homepage.model.Song;
 import de.iamcrypta.homepage.model.SongChange;
 import de.iamcrypta.homepage.model.SongTemp;
 import org.springframework.stereotype.Component;
+import se.michaelthelin.spotify.model_objects.specification.PlaylistTrack;
 
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class SongMapper {
-    public SongDTO convertSongToSongDto(Song song){
+    private SongDTO convertSongToSongDto(Song song){
         return new SongDTO(song.getAddedBy(),
                 song.getDateAdded(),
                 song.isLocalTrack(),
@@ -30,7 +32,7 @@ public class SongMapper {
         return dtos;
     }
 
-    public Song convertSongDtoToSong(SongDTO dto){
+    private Song convertSongDtoToSong(SongDTO dto){
         return new Song(dto.getAddedBy(),
                 dto.getDateAdded(),
                 dto.isLocalTrack(),
@@ -48,7 +50,7 @@ public class SongMapper {
         return songs;
     }
 
-    public SongTemp convertSongDtoToSongTemp(SongDTO dto){
+    private SongTemp convertSongDtoToSongTemp(SongDTO dto){
         return new SongTemp(dto.getAddedBy(),
                 dto.getDateAdded(),
                 dto.isLocalTrack(),
@@ -66,7 +68,7 @@ public class SongMapper {
         return songs;
     }
 
-    public SongChangeDTO convertSongChangeToSongChangeDtos(SongChange change){
+    private SongChangeDTO convertSongChangeToSongChangeDtos(SongChange change){
         return new SongChangeDTO(change.getAddedBy(),
                                         change.getChangeOccurredAt(),
                                         change.getIsLocalTrack(),
@@ -85,5 +87,50 @@ public class SongMapper {
             dtos.add(convertSongChangeToSongChangeDtos(change));
         }
         return dtos;
+    }
+
+    private SongTemp convertPlaylistTrackToSongTemp(PlaylistTrack track){
+        return new SongTemp(track.getAddedBy().getId(),
+                            track.getAddedAt().toInstant().atOffset(ZoneOffset.UTC), // Convert Date to OffsetDateTime with UTC timezone
+                            track.getIsLocal(),
+                            track.getTrack().getDurationMs(),
+                            track.getTrack().getName(),
+                            track.getTrack().getExternalUrls().toString(),
+                            track.getTrack().getId()
+                            );
+    }
+
+    public List<SongTemp> convertAllPlaylistTracksToSongTemp(List<PlaylistTrack> tracks){
+        List<SongTemp> temp = new ArrayList<>();
+        for(PlaylistTrack track: tracks){
+            temp.add(convertPlaylistTrackToSongTemp(track));
+        }
+        return temp;
+    }
+
+    public SongChange convertSongToSongChange(Song song, boolean isDeleted, boolean isAdded){
+        return new SongChange(song.getAddedBy(),
+                              song.isLocalTrack(),
+                              song.getDurationMs(),
+                              song.getSongName(),
+                              song.getSpotifyExternalUrl(),
+                              song.getSpotifySongId(),
+                              isDeleted,
+                              isAdded);
+    }
+
+    /**
+     * Mapper from Song to SongChanges. HAS TO BE CALLED SEPARATELY FOR LIST OF DELETED/ADDED SONGS
+     * @param songs A list of songs to be converted
+     * @param isDeleted IS SET FOR ALL ITEMS IN LIST
+     * @param isAdded IS SET FOR ALL ITEMS IN LIST
+     * @return List of SongChanges
+     */
+    public List<SongChange> convertAllSongsToSongChanges(List<Song> songs, boolean isDeleted, boolean isAdded){
+        List<SongChange> changes = new ArrayList<>();
+        for(Song song: songs){
+            changes.add(convertSongToSongChange(song, isDeleted, isAdded));
+        }
+        return changes;
     }
 }

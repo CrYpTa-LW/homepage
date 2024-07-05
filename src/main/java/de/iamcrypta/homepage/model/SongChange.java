@@ -44,13 +44,17 @@ public class SongChange {
     }
 
     public SongChange(String addedBy, boolean isLocalTrack, int durationMs, String songName, String spotifyExternalUrl, String spotifySongId, boolean isDeleted, boolean isAdded) {
+        if(isLocalTrack){
+            this.spotifySongId = "";
+        } else {
+            this.spotifySongId = spotifySongId;
+        }
         this.addedBy = addedBy;
         this.changeOccurredAt = new Date();
         this.isLocalTrack = isLocalTrack;
         this.durationMs = durationMs;
         this.songName = songName;
         this.spotifyExternalUrl = spotifyExternalUrl;
-        this.spotifySongId = spotifySongId;
         this.isDeleted = isDeleted;
         this.isAdded = isAdded;
     }

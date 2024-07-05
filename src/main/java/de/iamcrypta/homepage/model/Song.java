@@ -38,17 +38,26 @@ public class Song {
     }
 
     public Song(String addedBy, OffsetDateTime dateAdded, boolean isLocalTrack, int durationMs, String songName, String spotifyExternalUrl, String spotifySongId) {
+        if(isLocalTrack){
+            this.spotifySongId = "";
+        } else {
+            this.spotifySongId = spotifySongId;
+        }
         this.addedBy = addedBy;
         this.dateAdded = dateAdded;
         this.isLocalTrack = isLocalTrack;
         this.durationMs = durationMs;
         this.songName = songName;
         this.spotifyExternalUrl = spotifyExternalUrl;
-        this.spotifySongId = spotifySongId;
+
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id){
+        this.id = id;
     }
 
     public String getAddedBy() {

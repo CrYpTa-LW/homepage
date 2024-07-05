@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.time.OffsetDateTime;
 
 @Entity
-@Table(name = "song_temp")
+@Table(name = "songs_temp")
 public class SongTemp {
 
     @Id
@@ -38,13 +38,17 @@ public class SongTemp {
     }
 
     public SongTemp(String addedBy, OffsetDateTime dateAdded, boolean isLocalTrack, int durationMs, String songName, String spotifyExternalUrl, String spotifySongId) {
+        if(isLocalTrack){
+            this.spotifySongId = "";
+        } else {
+            this.spotifySongId = spotifySongId;
+        }
         this.addedBy = addedBy;
         this.dateAdded = dateAdded;
         this.isLocalTrack = isLocalTrack;
         this.durationMs = durationMs;
         this.songName = songName;
         this.spotifyExternalUrl = spotifyExternalUrl;
-        this.spotifySongId = spotifySongId;
     }
 
     public Long getId() {
