@@ -13,11 +13,15 @@ import java.util.List;
 @RequestMapping(path = "/api")
 public class SpotifyController {
 
-    @Autowired
-    SongsChangeRepository songsChangeRepository;
+    private final SongsChangeRepository songsChangeRepository;
+
+    private final SongMapper songMapper;
 
     @Autowired
-    SongMapper songMapper;
+    public SpotifyController(SongsChangeRepository songsChangeRepository, SongMapper songMapper){
+        this.songMapper = songMapper;
+        this.songsChangeRepository = songsChangeRepository;
+    }
 
     @GetMapping(path = "/getSongChange")
     public List<SongChangeDTO> getSongChange(){

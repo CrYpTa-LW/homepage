@@ -30,7 +30,8 @@ public interface SongsService {
     void saveAllSongs(List<Song> songs);
 
     /**
-     * Deletes a list of songs from the song db
+     * Deletes a list of songs from the song db.
+     * IT WILL NOT CHECK THE PRIMARY KEY
      * @param songs List of songs to be deleted
      */
     void deleteListOfSongs(List<Song> songs);

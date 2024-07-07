@@ -1,7 +1,6 @@
 package de.iamcrypta.homepage.service.impl;
 
 import de.iamcrypta.homepage.dto.SongDTO;
-import de.iamcrypta.homepage.mapper.SongMapper;
 import de.iamcrypta.homepage.model.Song;
 import de.iamcrypta.homepage.model.SongChange;
 import de.iamcrypta.homepage.model.SongTemp;
@@ -18,25 +17,25 @@ import java.util.List;
 @Service
 public class SongsServiceImpl implements SongsService {
 
-    private final SongMapper songMapper;
     private final SongsRepository songsRepository;
     private final SongsTempRepository songsTempRepository;
     private final SongsChangeRepository songsChangeRepository;
 
     @Autowired
-    public SongsServiceImpl(SongMapper songMapper, SongsRepository songsRepository, SongsTempRepository songsTempRepository, SongsChangeRepository songsChangeRepository) {
-        this.songMapper = songMapper;
+    public SongsServiceImpl(SongsRepository songsRepository, SongsTempRepository songsTempRepository, SongsChangeRepository songsChangeRepository) {
         this.songsRepository = songsRepository;
         this.songsTempRepository = songsTempRepository;
         this.songsChangeRepository = songsChangeRepository;
     }
 
     @Override
+    @Transactional
     public List<SongDTO> getAllDeletedSongs() {
         return songsRepository.findSongsNotInTemp();
     }
 
     @Override
+    @Transactional
     public List<SongDTO> getAllAddedSongs() {
         return songsRepository.findTempNotInSongs();
     }
@@ -44,28 +43,31 @@ public class SongsServiceImpl implements SongsService {
     @Override
     @Transactional
     public void saveAllSongs(List<Song> songs) {
-        songsRepository.saveAll(songs);
-        songsRepository.flush();
+        songsRepository.saveAllAndFlush(songs);
     }
 
     @Override
+    @Transactional
     public void deleteListOfSongs(List<Song> songs) {
-        if(songs != null){
-            songsRepository.deleteAllInBatch(songs);
+        for(Song s: songs){
+            songsRepository.deleteSongBy(s.getAddedBy(), s.getDateAdded(), s.isLocalTrack(), s.getDurationMs(), s.getSongName(), s.getSpotifyExternalUrl(), s.getSpotifySongId());
         }
     }
 
     @Override
+    @Transactional
     public void saveAllTemp(List<SongTemp> temp) {
         songsTempRepository.saveAllAndFlush(temp);
     }
 
     @Override
+    @Transactional
     public void deleteAllSongsTemp() {
         songsTempRepository.deleteAllInBatch();
     }
 
     @Override
+    @Transactional
     public void saveAllSongsChange(List<SongChange> changes) {
         songsChangeRepository.saveAllAndFlush(changes);
     }

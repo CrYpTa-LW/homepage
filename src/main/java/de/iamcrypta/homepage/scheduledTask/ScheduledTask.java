@@ -10,10 +10,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistTrack;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,18 +24,20 @@ public class ScheduledTask {
     @Value("${spotify.playlist.url}")
     private String spotifyPlaylistUrl;
 
-    @Autowired
-    private SpotifyService spotifyService;
+    private final SpotifyService spotifyService;
+
+    private final SongMapper songMapper;
+
+    private final SongsService songsService;
 
     @Autowired
-    private SongMapper songMapper;
-
-    @Autowired
-    private SongsService songsService;
-
-    public ScheduledTask() {
+    public ScheduledTask(SpotifyService spotifyService, SongMapper songMapper, SongsService songsService) {
+        this.spotifyService = spotifyService;
+        this.songMapper = songMapper;
+        this.songsService = songsService;
     }
 
+    @Scheduled(cron = "0 0 0 * * *")
     public void checkForPlaylistUpdates(){
         logger.info("Start checkForPlaylistUpdates");
         // Delete all entries in temp db
@@ -44,11 +46,11 @@ public class ScheduledTask {
 
         // Get new playlist from spotify api
         List<PlaylistTrack> tracks = spotifyService.getPlaylistTracks(spotifyPlaylistUrl);
-        logger.info("Get new playlist from spotify api");
+        logger.info("Got new playlist from spotify api");
 
         // Create a list of SongTemp from PlaylistTrack to put into database
         List<SongTemp> temp = songMapper.convertAllPlaylistTracksToSongTemp(tracks);
-        logger.info("Create a list of SongTemp from PlaylistTrack to put into database");
+        logger.info("Created a list of SongTemp from PlaylistTrack to put into database");
 
         // Put all temp in db
         songsService.saveAllTemp(temp);
@@ -57,40 +59,23 @@ public class ScheduledTask {
         // Compare temp with songs to get deleted tracks and added tracks
         List<SongDTO> deletedTracksDTO = songsService.getAllDeletedSongs();
         List<Song> deletedTracks = songMapper.convertAllSongDtosToSongs(deletedTracksDTO);
-        logger.info("Get deleted songs");
+        logger.info("Got deleted songs");
         List<SongDTO> addedTracksDTO = songsService.getAllAddedSongs();
         List<Song> addedTracks = songMapper.convertAllSongDtosToSongs(addedTracksDTO);
-        logger.info("Get added songs");
+        logger.info("Got added songs");
 
         // Put deleted and added songs into songs_change database
         songsService.saveAllSongsChange(songMapper.convertAllSongsToSongChanges(deletedTracks, true, false));
-        logger.info("Save deleted songs into songs_change db");
+        logger.info("Saved deleted songs into songs_change db");
         songsService.saveAllSongsChange(songMapper.convertAllSongsToSongChanges(addedTracks, false, true));
-        logger.info("Save added songs into songs_change db");
+        logger.info("Saved added songs into songs_change db");
 
-        // Put added songs into songs db
-        List<Song> newAddedTracks = new ArrayList<>();
-
-        // TODO: REMOVE. Problem all addedTracks have a 0 as id.
-
-        for(Song s: addedTracks){
-            Song newSong = new Song(s.getAddedBy(),
-                                    s.getDateAdded(),
-                                    s.isLocalTrack(),
-                                    s.getDurationMs(),
-                                    s.getSongName(),
-                                    s.getSpotifyExternalUrl(),
-                                    s.getSpotifySongId());
-            newAddedTracks.add(newSong);
-        }
-
-
-
-        songsService.saveAllSongs(newAddedTracks);
-        logger.info("Save added songs into songs db");
+        // Add added songs into song db
+        songsService.saveAllSongs(addedTracks);
+        logger.info("Saved added songs into songs db");
 
         // Remove deleted songs from songs db
         songsService.deleteListOfSongs(deletedTracks);
-        logger.info("Delete deleted songs from songs db");
+        logger.info("Deleted deleted songs from songs db");
     }
 }

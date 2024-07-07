@@ -74,7 +74,7 @@ public class SpotifyServiceImpl implements SpotifyService {
         refreshAccessToken();
 
         // Create return list
-        List<PlaylistTrack> fullPlaylist = new ArrayList<PlaylistTrack>();
+        List<PlaylistTrack> fullPlaylist = new ArrayList<>();
 
         // Create string for next paging url
         String next = "";
@@ -94,7 +94,7 @@ public class SpotifyServiceImpl implements SpotifyService {
                 //Get items out of paging object
                 PlaylistTrack[] arrayPlaylistTracks = playlistTrackPaging.getItems();
 
-                // Convert Array to List and add to fullplaylist list
+                // Convert Array to List and add to full_playlist list
                 fullPlaylist.addAll(Arrays.asList(arrayPlaylistTracks));
 
                 // Get next api url to check if null --> End of playlist

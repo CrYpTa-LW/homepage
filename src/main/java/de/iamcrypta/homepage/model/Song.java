@@ -56,16 +56,6 @@ public class Song {
     public Song() {
     }
 
-    public Song(String spotifySongId, String spotifyExternalUrl, String songName, int durationMs, boolean isLocalTrack, OffsetDateTime dateAdded, String addedBy) {
-        this.spotifySongId = spotifySongId;
-        this.spotifyExternalUrl = spotifyExternalUrl;
-        this.songName = songName;
-        this.durationMs = durationMs;
-        this.isLocalTrack = isLocalTrack;
-        this.dateAdded = dateAdded;
-        this.addedBy = addedBy;
-    }
-
     public Song(String addedBy, OffsetDateTime dateAdded, boolean isLocalTrack, int durationMs, String songName, String spotifyExternalUrl, String spotifySongId) {
         if(isLocalTrack){
             this.spotifySongId = "";

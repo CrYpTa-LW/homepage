@@ -14,24 +14,6 @@ import java.util.List;
 
 @Component
 public class SongMapper {
-    private SongDTO convertSongToSongDto(Song song){
-        return new SongDTO(song.getAddedBy(),
-                song.getDateAdded(),
-                song.isLocalTrack(),
-                song.getDurationMs(),
-                song.getSongName(),
-                song.getSpotifyExternalUrl(),
-                song.getSpotifySongId());
-    }
-
-    public List<SongDTO> convertAllSongsToSongDtos(List<Song> songs){
-        List<SongDTO> dtos = new ArrayList<>();
-        for(Song song: songs){
-            dtos.add(convertSongToSongDto(song));
-        }
-        return dtos;
-    }
-
     private Song convertSongDtoToSong(SongDTO dto){
         return new Song(dto.getAddedBy(),
                 dto.getDateAdded(),
@@ -50,35 +32,17 @@ public class SongMapper {
         return songs;
     }
 
-    private SongTemp convertSongDtoToSongTemp(SongDTO dto){
-        return new SongTemp(dto.getAddedBy(),
-                dto.getDateAdded(),
-                dto.isLocalTrack(),
-                dto.getDurationMs(),
-                dto.getSongName(),
-                dto.getSpotifyExternalUrl(),
-                dto.getSpotifySongId());
-    }
-
-    public List<SongTemp> convertAllSongDtosToSongTemp(List<SongDTO> dtos){
-        List<SongTemp> songs = new ArrayList<>();
-        for(SongDTO dto: dtos){
-            songs.add(convertSongDtoToSongTemp(dto));
-        }
-        return songs;
-    }
-
     private SongChangeDTO convertSongChangeToSongChangeDtos(SongChange change){
         return new SongChangeDTO(change.getAddedBy(),
-                                        change.getChangeOccurredAt(),
-                                        change.getIsLocalTrack(),
-                                        change.getDurationMs(),
-                                        change.getSongName(),
-                                        change.getSpotifyExternalUrl(),
-                                        change.getSpotifySongId(),
-                                        change.getIsDeleted(),
-                                        change.getIsAdded()
-                                        );
+                                change.getChangeOccurredAt(),
+                                change.getIsLocalTrack(),
+                                change.getDurationMs(),
+                                change.getSongName(),
+                                change.getSpotifyExternalUrl(),
+                                change.getSpotifySongId(),
+                                change.getIsDeleted(),
+                                change.getIsAdded()
+                                );
     }
 
     public List<SongChangeDTO> convertAllSongChangesToSongChangeDtos(List<SongChange> changes){
