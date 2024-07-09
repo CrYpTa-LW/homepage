@@ -23,6 +23,7 @@ public class SpotifyController {
         this.songsChangeRepository = songsChangeRepository;
     }
 
+    @CrossOrigin(origins = "http://localhost:3001")
     @GetMapping(path = "/getSongChange")
     public List<SongChangeDTO> getSongChange(){
         List<SongChange> songChanges = songsChangeRepository.findAll();
