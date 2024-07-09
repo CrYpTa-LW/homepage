@@ -6,6 +6,7 @@ import de.iamcrypta.homepage.model.Song;
 import de.iamcrypta.homepage.model.SongTemp;
 import de.iamcrypta.homepage.service.SongsService;
 import de.iamcrypta.homepage.service.SpotifyService;
+import de.iamcrypta.homepage.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,8 +50,10 @@ public class ScheduledTask {
         logger.info("Got new playlist from spotify api");
 
         // Create a list of SongTemp from PlaylistTrack to put into database
-        List<SongTemp> temp = songMapper.convertAllPlaylistTracksToSongTemp(tracks);
+        List<SongTemp> tempWithWrongNames = songMapper.convertAllPlaylistTracksToSongTemp(tracks);
         logger.info("Created a list of SongTemp from PlaylistTrack to put into database");
+
+        List<SongTemp> temp = Util.fixSongAddedByNames(tempWithWrongNames);
 
         // Put all temp in db
         songsService.saveAllTemp(temp);
