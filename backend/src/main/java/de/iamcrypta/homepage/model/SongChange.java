@@ -50,6 +50,7 @@ public class SongChange {
             this.spotifySongId = spotifySongId;
         }
         this.addedBy = addedBy;
+        // TODO: change to one day before
         this.changeOccurredAt = new Date();
         this.isLocalTrack = isLocalTrack;
         this.durationMs = durationMs;
