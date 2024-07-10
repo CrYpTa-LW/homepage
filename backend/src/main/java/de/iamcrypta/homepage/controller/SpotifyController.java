@@ -23,7 +23,7 @@ public class SpotifyController {
         this.songsChangeRepository = songsChangeRepository;
     }
 
-    @CrossOrigin(origins = {"http://77.20.170.190:3001", "http://192.168.0.220:3001"})
+    @CrossOrigin(origins = {"http://77.20.170.190:3000", "http://192.168.0.220:3000"})
     @GetMapping(path = "/getSongChange")
     public List<SongChangeDTO> getSongChange(){
         List<SongChange> songChanges = songsChangeRepository.findAll();
