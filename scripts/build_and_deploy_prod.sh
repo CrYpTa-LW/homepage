@@ -5,11 +5,11 @@ docker compose --file /home/crypta/dockerContainers/webserver_homepage/docker-co
 echo "###Done###"
 
 echo "###Building Backend###"
-mvn -f /home/crypta/git/homepage/backend/pom.xmp -Dmaven.test.skip clean install
+mvn -f /home/crypta/git/homepage/backend/pom.xml -Dmaven.test.skip clean install
 echo "###Done###"
 
 echo "###Removing old files###"
-rm /home/crypta/git/homepage/backend/target/homepage-backend-prod.jar
+rm /home/crypta/dockerContainers/webserver_homepage/backend-data/homepage-backend-prod.jar
 rm -r /home/crypta/dockerContainers/webserver_homepage/frontend-data/build/
 echo "###Done###"
 
