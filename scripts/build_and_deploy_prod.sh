@@ -28,6 +28,10 @@ mv /home/crypta/dockerContainers/webserver_homepage/backend-data/homepage-0.0.1-
 cp -r /home/crypta/git/homepage/frontend/build/ /home/crypta/dockerContainers/webserver_homepage/frontend-data/
 echo "###Done###"
 
+echo "###Deleting target folder###"
+rm -r /home/crypta/git/homepage/backend/target
+echo "###Done###"
+
 echo "Docker compose up (detach) for webserver_homepage"
 docker compose --file /home/crypta/dockerContainers/webserver_homepage/docker-compose-fullstack.yml up -d
 echo "###Done###"
