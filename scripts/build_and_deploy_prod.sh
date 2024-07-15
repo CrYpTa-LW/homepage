@@ -13,7 +13,9 @@ echo "###Building Backend###"
 mvn -f /home/crypta/git/homepage/backend/pom.xml -Dmaven.test.skip clean install
 echo "###Done###"
 
-echo "###Building Frontend###"
+echo "###Building Frontend. May take a while###"
+cd /home/crypta/git/homepage/frontend
+npm install
 npm --prefix /home/crypta/git/homepage/frontend run build
 echo "###Done###"
 
