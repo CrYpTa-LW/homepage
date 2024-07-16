@@ -1,5 +1,6 @@
 package de.iamcrypta.homepage.service;
 
+import de.iamcrypta.homepage.dto.SongChangeDTO;
 import de.iamcrypta.homepage.dto.SongDTO;
 import de.iamcrypta.homepage.model.Song;
 import de.iamcrypta.homepage.model.SongChange;
@@ -51,4 +52,9 @@ public interface SongsService {
      * Saves a list of song changes into the song_changes database
      */
     void saveAllSongsChange(List<SongChange> changes);
+
+    /**
+     * Gets all songs in song_change db
+     */
+    List<SongChangeDTO> getAllSongChangeDto();
 }
