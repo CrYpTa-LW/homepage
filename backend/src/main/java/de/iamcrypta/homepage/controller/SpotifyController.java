@@ -1,9 +1,7 @@
 package de.iamcrypta.homepage.controller;
 
 import de.iamcrypta.homepage.dto.SongChangeDTO;
-import de.iamcrypta.homepage.mapper.SongMapper;
-import de.iamcrypta.homepage.model.SongChange;
-import de.iamcrypta.homepage.repository.SongsChangeRepository;
+import de.iamcrypta.homepage.service.SongsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,20 +11,16 @@ import java.util.List;
 @RequestMapping(path = "/api/v1")
 public class SpotifyController {
 
-    private final SongsChangeRepository songsChangeRepository;
-
-    private final SongMapper songMapper;
+    private final SongsService songsService;
 
     @Autowired
-    public SpotifyController(SongsChangeRepository songsChangeRepository, SongMapper songMapper){
-        this.songMapper = songMapper;
-        this.songsChangeRepository = songsChangeRepository;
+    public SpotifyController(SongsService songsService){
+        this.songsService = songsService;
     }
 
-    @CrossOrigin(origins = {"https://sooooos.leon-wegener.de", "http://192.168.178.90:3000"})
+    @CrossOrigin(origins = {"https://sooooos.leon-wegener.de", "http://192.168.178.90:3001"})
     @GetMapping(path = "/getSongChange")
     public List<SongChangeDTO> getSongChange(){
-        List<SongChange> songChanges = songsChangeRepository.findAll();
-        return songMapper.convertAllSongChangesToSongChangeDtos(songChanges);
+        return songsService.getAllSongChangeDto();
     }
 }
