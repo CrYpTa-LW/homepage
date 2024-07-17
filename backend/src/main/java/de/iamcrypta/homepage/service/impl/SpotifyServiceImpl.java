@@ -1,6 +1,7 @@
 package de.iamcrypta.homepage.service.impl;
 
 import de.iamcrypta.homepage.service.SpotifyService;
+import de.iamcrypta.homepage.util.Util;
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.stereotype.Service;
 import se.michaelthelin.spotify.SpotifyApi;
@@ -14,9 +15,7 @@ import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetPlaylistsItemsRequest;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class SpotifyServiceImpl implements SpotifyService {
@@ -49,7 +48,6 @@ public class SpotifyServiceImpl implements SpotifyService {
 
     @Override
     public Playlist getPlaylist(String playlistId) {
-        // TODO: Maybe check if one hour has passed before refreshing?
         refreshAccessToken();
 
         // Create a playlist request
@@ -70,7 +68,6 @@ public class SpotifyServiceImpl implements SpotifyService {
 
     @Override
     public List<PlaylistTrack> getPlaylistTracks(String playlistId) {
-        // TODO: Maybe check if one hour has passed before refreshing?
         refreshAccessToken();
 
         // Create return list
@@ -108,5 +105,22 @@ public class SpotifyServiceImpl implements SpotifyService {
         }while(!(next == null));
 
         return fullPlaylist;
+    }
+
+    @Override
+    public Map<String, Integer> getPlaylistStatsForDuration(String playlistId, List<String> users) {
+        List<PlaylistTrack> tracks = getPlaylistTracks(playlistId);
+        Map<String, Integer> durations = new HashMap<>();
+
+        for(PlaylistTrack track: tracks){
+            // Get proper user name
+            String user = track.getAddedBy().getId();
+            user = Util.userIdToString(user);
+            //
+            durations.put(user, durations.getOrDefault(user, 0)+track.getTrack().getDurationMs());
+            durations.put("all", durations.getOrDefault("all", 0) + track.getTrack().getDurationMs());
+        }
+
+        return durations;
     }
 }
