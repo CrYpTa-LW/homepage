@@ -51,4 +51,10 @@ public interface SongsService {
      * Saves a list of song changes into the song_changes database
      */
     void saveAllSongsChange(List<SongChange> changes);
+
+    /**
+     * Gets all song_change entries
+     * @return a list of songchanges
+     */
+    List<SongChange> getAllSongChange();
 }

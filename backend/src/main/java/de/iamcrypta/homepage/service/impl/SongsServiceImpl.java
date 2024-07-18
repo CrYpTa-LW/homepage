@@ -72,5 +72,10 @@ public class SongsServiceImpl implements SongsService {
         songsChangeRepository.saveAllAndFlush(changes);
     }
 
+    @Override
+    public List<SongChange> getAllSongChange() {
+        return songsChangeRepository.findAll();
+    }
+
 
 }
