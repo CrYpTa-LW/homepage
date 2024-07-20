@@ -36,7 +36,11 @@ const SongChange = () => {
                         <h2 className="h5">{songChange.songName}</h2>
                         <p>Added by: {songChange.addedBy}</p>
                         <p>Change Occurred At: {new Date(songChange.changeOccurredAt).toLocaleDateString('de-DE')}</p>
-                        <p>Duration: {Math.floor(songChange.durationMs/1000/60)}:{Math.floor(songChange.durationMs/1000%60)}min </p>
+                        <p>
+                            Duration: 
+                            {Math.floor(songChange.durationMs / 1000 / 60)}:
+                            {Math.floor((songChange.durationMs / 1000) % 60).toString().padStart(2, '0')}min
+                        </p>
                         <p>
                             Spotify URL: 
                             {songChange.spotifyExternalUrl && songChange.spotifyExternalUrl.match(/spotify=(https:\/\/open.spotify.com\/track\/[^\}]*)/) ? (
