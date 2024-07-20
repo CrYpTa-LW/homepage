@@ -18,7 +18,7 @@ public class SpotifyController {
         this.songsService = songsService;
     }
 
-    @CrossOrigin(origins = {"https://sooooos.leon-wegener.de", "http://192.168.178.90:3001"})
+    @CrossOrigin(origins = {"https://sooooos.leon-wegener.de", "http://localhost:3001"})
     @GetMapping(path = "/getSongChange")
     public List<SongChangeDTO> getSongChange(){
         return songsService.getAllSongChangeDto();
