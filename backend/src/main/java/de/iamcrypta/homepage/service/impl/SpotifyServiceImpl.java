@@ -3,6 +3,7 @@ package de.iamcrypta.homepage.service.impl;
 import de.iamcrypta.homepage.service.SpotifyService;
 import de.iamcrypta.homepage.util.Util;
 import org.apache.hc.core5.http.ParseException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
@@ -22,6 +23,9 @@ public class SpotifyServiceImpl implements SpotifyService {
     private static final String clientId = "***REMOVED***";
 
     private static final String clientSecret = "***REMOVED***";
+
+    @Value("${spotify.playlist.url}")
+    private String spotifyPlaylistUrl;
 
     private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
             .setClientId(clientId)
@@ -108,8 +112,8 @@ public class SpotifyServiceImpl implements SpotifyService {
     }
 
     @Override
-    public Map<String, Integer> getPlaylistStatsForDuration(String playlistId, List<String> users) {
-        List<PlaylistTrack> tracks = getPlaylistTracks(playlistId);
+    public Map<String, Integer> getPlaylistStatsForDuration() {
+        List<PlaylistTrack> tracks = getPlaylistTracks(spotifyPlaylistUrl);
         Map<String, Integer> durations = new HashMap<>();
 
         for(PlaylistTrack track: tracks){

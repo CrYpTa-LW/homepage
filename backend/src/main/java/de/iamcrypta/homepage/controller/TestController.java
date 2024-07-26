@@ -35,6 +35,6 @@ public class TestController {
     @GetMapping(path = "/test")
     public String test(){
         logger.info("GOGOGO");
-        return "";
+        return playlistStatsService.getAllPlaylistStats().toString();
     }
 }

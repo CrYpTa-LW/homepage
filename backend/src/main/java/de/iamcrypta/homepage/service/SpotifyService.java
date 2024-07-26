@@ -26,9 +26,7 @@ public interface SpotifyService {
 
     /**
      * Call the spotify api and return total duration of all songs for given users. Also return total duration of all songs.
-     * @param playlistId the spotify id of the playlist
-     * @param users list of users for stats
      * @return a map that maps user to total duration of songs
      */
-    Map<String, Integer> getPlaylistStatsForDuration(String playlistId, List<String> users);
+    Map<String, Integer> getPlaylistStatsForDuration();
 }
