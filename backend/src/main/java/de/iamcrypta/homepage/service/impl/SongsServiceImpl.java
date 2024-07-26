@@ -1,6 +1,8 @@
 package de.iamcrypta.homepage.service.impl;
 
+import de.iamcrypta.homepage.dto.SongChangeDTO;
 import de.iamcrypta.homepage.dto.SongDTO;
+import de.iamcrypta.homepage.mapper.SongMapper;
 import de.iamcrypta.homepage.model.Song;
 import de.iamcrypta.homepage.model.SongChange;
 import de.iamcrypta.homepage.model.SongTemp;
@@ -20,12 +22,14 @@ public class SongsServiceImpl implements SongsService {
     private final SongsRepository songsRepository;
     private final SongsTempRepository songsTempRepository;
     private final SongsChangeRepository songsChangeRepository;
+    private final SongMapper songMapper;
 
     @Autowired
-    public SongsServiceImpl(SongsRepository songsRepository, SongsTempRepository songsTempRepository, SongsChangeRepository songsChangeRepository) {
+    public SongsServiceImpl(SongsRepository songsRepository, SongsTempRepository songsTempRepository, SongsChangeRepository songsChangeRepository, SongMapper songMapper) {
         this.songsRepository = songsRepository;
         this.songsTempRepository = songsTempRepository;
         this.songsChangeRepository = songsChangeRepository;
+        this.songMapper = songMapper;
     }
 
     @Override
@@ -73,8 +77,14 @@ public class SongsServiceImpl implements SongsService {
     }
 
     @Override
+<<<<<<< HEAD
     public List<SongChange> getAllSongChange() {
         return songsChangeRepository.findAll();
+=======
+    public List<SongChangeDTO> getAllSongChangeDto() {
+        List<SongChange> songChanges = songsChangeRepository.findAllByOrderByChangeOccurredAtDesc();
+        return songMapper.convertAllSongChangesToSongChangeDtos(songChanges);
+>>>>>>> develop
     }
 
 
