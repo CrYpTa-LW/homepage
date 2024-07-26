@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const SOOOOOS_REST_API_URL = "https://api.leon-wegener.de/api/v1/getSongChange";
+//const SOOOOOS_REST_API_URL = "https://api.leon-wegener.de/api/v1/getSongChange";
+const SOOOOOS_REST_API_URL = "http://192.168.178.90/api/v1/getSongChange";
 
 class SooooosService {
     constructor(){}
