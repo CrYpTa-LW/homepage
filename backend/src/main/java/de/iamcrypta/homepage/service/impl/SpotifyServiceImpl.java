@@ -122,7 +122,7 @@ public class SpotifyServiceImpl implements SpotifyService {
             user = Util.userIdToString(user);
             //
             durations.put(user, durations.getOrDefault(user, 0)+track.getTrack().getDurationMs());
-            durations.put("all", durations.getOrDefault("all", 0) + track.getTrack().getDurationMs());
+            durations.put("Total", durations.getOrDefault("Total", 0) + track.getTrack().getDurationMs());
         }
 
         return durations;
