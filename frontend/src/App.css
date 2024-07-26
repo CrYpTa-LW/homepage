@@ -128,3 +128,39 @@ span {
 .song-item a:hover {
   text-decoration: underline;
 }
+
+.container {
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.my-4 {
+  margin: 2rem 0;
+}
+
+.list-group-item {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+}
+
+.list-group-item.total-highlight {
+  background-color: #c4c4c4; /* Highlight color for Total */
+  font-weight: bold;
+}
+
+.list-group-item.total-highlight h2, .list-group-item.total-highlight p {
+  font-weight: bold;
+}
+
+.list-group-item h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.list-group-item p {
+  margin: 0;
+}

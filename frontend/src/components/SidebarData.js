@@ -11,14 +11,8 @@ export const SidebarData = [
         cName: "nav-text",
     },
     {
-        title: "Products",
-        path: "/products",
-        icons: <FaIcons.FaCartPlus/>,
-        cName: "nav-text",
-    },
-    {
-        title: "Reports",
-        path: "/reports",
+        title: "Playlist Stats",
+        path: "/playlist-stats",
         icons: <IoIcons.IoIosPaper/>,
         cName: "nav-text",
     },

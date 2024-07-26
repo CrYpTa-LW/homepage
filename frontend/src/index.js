@@ -9,11 +9,11 @@ import {
 } from "react-router-dom";
 import Products from "./routes/Products";
 import Home from "./routes/Home";
-import Reports from "./routes/Reports";
 import Sidebar from "./components/Sidebar";
 import SongChange from "./components/SongChange";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import PlaylistStats from "./routes/PlaylistStats";
 
 
 const AppLayout = () => (
@@ -32,12 +32,8 @@ const router = createBrowserRouter([
         element: <Home/>,
       },
       {
-        path: "products",
-        element: <Products/>,
-      },
-      {
-        path: "reports",
-        element: <Reports/>,
+        path: "playlist-stats",
+        element: <PlaylistStats/>,
       },
       {
         path: "song-change",
