@@ -77,15 +77,13 @@ public class SongsServiceImpl implements SongsService {
     }
 
     @Override
-<<<<<<< HEAD
     public List<SongChange> getAllSongChange() {
         return songsChangeRepository.findAll();
-=======
+    }
+
+    @Override
     public List<SongChangeDTO> getAllSongChangeDto() {
         List<SongChange> songChanges = songsChangeRepository.findAllByOrderByChangeOccurredAtDesc();
         return songMapper.convertAllSongChangesToSongChangeDtos(songChanges);
->>>>>>> develop
     }
-
-
 }

@@ -54,14 +54,13 @@ public interface SongsService {
     void saveAllSongsChange(List<SongChange> changes);
 
     /**
-<<<<<<< HEAD
      * Gets all song_change entries
      * @return a list of songchanges
      */
     List<SongChange> getAllSongChange();
-=======
+
+    /**
      * Gets all songs in song_change db
      */
     List<SongChangeDTO> getAllSongChangeDto();
->>>>>>> develop
 }
