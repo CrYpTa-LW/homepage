@@ -2,6 +2,7 @@ package de.iamcrypta.homepage.controller;
 
 import de.iamcrypta.homepage.scheduledTask.ScheduledTask;
 import de.iamcrypta.homepage.service.PlaylistStatService;
+import de.iamcrypta.homepage.service.SongsService;
 import de.iamcrypta.homepage.service.SpotifyService;
 import de.iamcrypta.homepage.util.Util;
 import org.slf4j.Logger;
@@ -21,20 +22,21 @@ public class TestController {
     private final SpotifyService spotifyService;
     private final Util util;
     private final PlaylistStatService playlistStatsService;
+    private final SongsService songsService;
 
     @Autowired
-    public TestController(ScheduledTask scheduledTask, SpotifyService spotifyService, Util util, PlaylistStatService playlistStatsService) {
+    public TestController(ScheduledTask scheduledTask, SpotifyService spotifyService, Util util, PlaylistStatService playlistStatsService, SongsService songsService) {
         this.scheduledTask = scheduledTask;
         this.spotifyService = spotifyService;
         this.util = util;
         this.playlistStatsService = playlistStatsService;
-
+        this.songsService = songsService;
     }
 
     @SuppressWarnings("SpellCheckingInspection")
     @GetMapping(path = "/test")
     public String test(){
         logger.info("GOGOGO");
-        return playlistStatsService.getAllPlaylistStats().toString();
+        return "LUL";
     }
 }

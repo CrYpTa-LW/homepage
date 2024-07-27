@@ -59,8 +59,4 @@ public interface SongsService {
      */
     List<SongChange> getAllSongChange();
 
-    /**
-     * Gets all songs in song_change db
-     */
-    List<SongChangeDTO> getAllSongChangeDto();
 }
