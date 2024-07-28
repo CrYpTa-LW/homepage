@@ -20,25 +20,22 @@ import java.util.*;
 
 @Service
 public class SpotifyServiceImpl implements SpotifyService {
-    private static final String clientId = "***REMOVED***";
-
-    private static final String clientSecret = "***REMOVED***";
 
     @Value("${spotify.playlist.url}")
     private String spotifyPlaylistUrl;
+    private final SpotifyApi spotifyApi;
+    private final ClientCredentialsRequest clientCredentialsRequest;
 
-    private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
-            .setClientId(clientId)
-            .setClientSecret(clientSecret)
-            .build();
+    public SpotifyServiceImpl(@Value("${spotify.clientId}") String clientId, @Value("${spotify.clientSecret}") String clientSecret) {
+        spotifyApi = new SpotifyApi.Builder()
+                .setClientId(clientId)
+                .setClientSecret(clientSecret)
+                .build();
 
-    private static final ClientCredentialsRequest clientCredentialsRequest = spotifyApi.clientCredentials()
-            .build();
-
-    public SpotifyServiceImpl() {
+        clientCredentialsRequest = spotifyApi.clientCredentials().build();
     }
 
-    public static void refreshAccessToken() {
+    public void refreshAccessToken() {
         try {
             final ClientCredentials clientCredentials = clientCredentialsRequest.execute();
 
@@ -102,11 +99,11 @@ public class SpotifyServiceImpl implements SpotifyService {
                 next = playlistTrackPaging.getNext();
 
                 // Increment the offset by 100
-                i+=100;
+                i += 100;
             } catch (IOException | SpotifyWebApiException | ParseException e) {
                 System.out.println("Error: " + e.getMessage());
             }
-        }while(!(next == null));
+        } while (!(next == null));
 
         return fullPlaylist;
     }
@@ -116,12 +113,12 @@ public class SpotifyServiceImpl implements SpotifyService {
         List<PlaylistTrack> tracks = getPlaylistTracks(spotifyPlaylistUrl);
         Map<String, Integer> durations = new HashMap<>();
 
-        for(PlaylistTrack track: tracks){
+        for (PlaylistTrack track : tracks) {
             // Get proper user name
             String user = track.getAddedBy().getId();
             user = Util.userIdToString(user);
             //
-            durations.put(user, durations.getOrDefault(user, 0)+track.getTrack().getDurationMs());
+            durations.put(user, durations.getOrDefault(user, 0) + track.getTrack().getDurationMs());
             durations.put("Total", durations.getOrDefault("Total", 0) + track.getTrack().getDurationMs());
         }
 
