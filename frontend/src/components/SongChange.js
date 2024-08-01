@@ -34,6 +34,7 @@ const SongChange = () => {
                 {songChanges.map((songChange, index) => (
                     <li key={index} className="list-group-item">
                         <h2 className="h5">{songChange.songName}</h2>
+                        <p>Artist: {songChange.artists}</p>
                         <p>Added by: {songChange.addedBy}</p>
                         <p>Change Occurred At: {new Date(songChange.changeOccurredAt).toLocaleDateString('de-DE')}</p>
                         <p>
@@ -49,7 +50,6 @@ const SongChange = () => {
                                 'N/A'
                             )}
                         </p>
-                        <p>Spotify Song ID: {songChange.spotifySongId}</p>
                         <p>Status: <span className={songChange.deleted ? 'badge bg-danger' : 'badge bg-success'}>{songChange.deleted ? 'Deleted' : 'Added'}</span></p>
                     </li>
                 ))}
