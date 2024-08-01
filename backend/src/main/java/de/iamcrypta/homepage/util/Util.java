@@ -2,6 +2,9 @@ package de.iamcrypta.homepage.util;
 
 import de.iamcrypta.homepage.model.SongTemp;
 import org.springframework.stereotype.Component;
+import se.michaelthelin.spotify.model_objects.specification.ArtistSimplified;
+import se.michaelthelin.spotify.model_objects.specification.PlaylistTrack;
+import se.michaelthelin.spotify.model_objects.specification.Track;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,5 +41,20 @@ public class Util {
         users.add("ysmarichino");
         users.add("jezze712");
         return users;
+    }
+
+    public static String getArtistsFromPlaylistTrack(PlaylistTrack playlistTrack){
+        Track track = (Track) playlistTrack.getTrack();
+        ArtistSimplified[] artists = track.getArtists();
+        StringBuilder artists_string = new StringBuilder();
+
+        for(int i= 0; i < artists.length; i++){
+            artists_string.append(artists[i].getName());
+            if(i != artists.length -1){
+                artists_string.append(", ");
+            }
+        }
+
+        return artists_string.toString();
     }
 }

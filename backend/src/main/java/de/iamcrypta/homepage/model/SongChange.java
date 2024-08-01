@@ -40,10 +40,13 @@ public class SongChange {
     @Column(name = "is_added", nullable = false)
     private boolean isAdded;
 
+    @Column(name="artists")
+    private String artists;
+
     public SongChange() {
     }
 
-    public SongChange(String addedBy, boolean isLocalTrack, int durationMs, String songName, String spotifyExternalUrl, String spotifySongId, boolean isDeleted, boolean isAdded) {
+    public SongChange(String addedBy, boolean isLocalTrack, int durationMs, String songName, String spotifyExternalUrl, String spotifySongId, boolean isDeleted, boolean isAdded, String artists) {
         if(isLocalTrack){
             this.spotifySongId = "";
         } else {
@@ -58,6 +61,7 @@ public class SongChange {
         this.spotifyExternalUrl = spotifyExternalUrl;
         this.isDeleted = isDeleted;
         this.isAdded = isAdded;
+        this.artists = artists;
     }
 
     public Long getId() {
@@ -132,6 +136,14 @@ public class SongChange {
         isAdded = added;
     }
 
+    public String getArtists() {
+        return artists;
+    }
+
+    public void setArtists(String artists) {
+        this.artists = artists;
+    }
+
     @Override
     public String toString() {
         return "SongChange{" +
@@ -145,6 +157,7 @@ public class SongChange {
                 ", spotifySongId='" + spotifySongId + '\'' +
                 ", isDeleted=" + isDeleted +
                 ", isAdded=" + isAdded +
+                ", artists='" + artists + '\'' +
                 '}';
     }
 }

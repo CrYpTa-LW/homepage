@@ -34,11 +34,14 @@ public class SongTemp {
     @Column(name = "spotify_song_id", nullable = false)
     private String spotifySongId;
 
+    @Column(name = "artists")
+    private String artists;
+
     public SongTemp() {
     }
 
-    public SongTemp(String addedBy, OffsetDateTime dateAdded, boolean isLocalTrack, int durationMs, String songName, String spotifyExternalUrl, String spotifySongId) {
-        if(isLocalTrack){
+    public SongTemp(String addedBy, OffsetDateTime dateAdded, boolean isLocalTrack, int durationMs, String songName, String spotifyExternalUrl, String spotifySongId, String artists) {
+        if (isLocalTrack) {
             this.spotifySongId = "";
         } else {
             this.spotifySongId = spotifySongId;
@@ -49,6 +52,7 @@ public class SongTemp {
         this.durationMs = durationMs;
         this.songName = songName;
         this.spotifyExternalUrl = spotifyExternalUrl;
+        this.artists = artists;
     }
 
     public Long getId() {
@@ -111,6 +115,14 @@ public class SongTemp {
         this.spotifySongId = spotifySongId;
     }
 
+    public String getArtists() {
+        return artists;
+    }
+
+    public void setArtists(String artists) {
+        this.artists = artists;
+    }
+
     @Override
     public String toString() {
         return "SongTemp{" +
@@ -122,6 +134,7 @@ public class SongTemp {
                 ", songName='" + songName + '\'' +
                 ", spotifyExternalUrl='" + spotifyExternalUrl + '\'' +
                 ", spotifySongId='" + spotifySongId + '\'' +
+                ", artists='" + artists + '\'' +
                 '}';
     }
 }

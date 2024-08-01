@@ -11,8 +11,9 @@ public class SongDTO {
     private String songName;
     private String spotifyExternalUrl;
     private String spotifySongId;
+    private String artists;
 
-    public SongDTO(String addedBy, OffsetDateTime dateAdded, boolean isLocalTrack, int durationMs, String songName, String spotifyExternalUrl, String spotifySongId) {
+    public SongDTO(String addedBy, OffsetDateTime dateAdded, boolean isLocalTrack, int durationMs, String songName, String spotifyExternalUrl, String spotifySongId, String artists) {
         this.addedBy = addedBy;
         this.dateAdded = dateAdded;
         this.isLocalTrack = isLocalTrack;
@@ -20,6 +21,7 @@ public class SongDTO {
         this.songName = songName;
         this.spotifyExternalUrl = spotifyExternalUrl;
         this.spotifySongId = spotifySongId;
+        this.artists = artists;
     }
 
     public String getAddedBy() {
@@ -78,6 +80,14 @@ public class SongDTO {
         this.spotifySongId = spotifySongId;
     }
 
+    public String getArtists() {
+        return artists;
+    }
+
+    public void setArtists(String artists) {
+        this.artists = artists;
+    }
+
     @Override
     public String toString() {
         return "SongDTO{" +
@@ -88,6 +98,7 @@ public class SongDTO {
                 ", songName='" + songName + '\'' +
                 ", spotifyExternalUrl='" + spotifyExternalUrl + '\'' +
                 ", spotifySongId='" + spotifySongId + '\'' +
+                ", artists='" + artists + '\'' +
                 '}';
     }
 }
