@@ -40,14 +40,14 @@ public class SongChange {
     @Column(name = "is_added", nullable = false)
     private boolean isAdded;
 
-    @Column(name="artists")
+    @Column(name = "artists")
     private String artists;
 
     public SongChange() {
     }
 
     public SongChange(String addedBy, boolean isLocalTrack, int durationMs, String songName, String spotifyExternalUrl, String spotifySongId, boolean isDeleted, boolean isAdded, String artists) {
-        if(isLocalTrack){
+        if (isLocalTrack) {
             this.spotifySongId = "";
         } else {
             this.spotifySongId = spotifySongId;
