@@ -164,3 +164,18 @@ span {
 .list-group-item p {
   margin: 0;
 }
+
+.rainbow-text {
+  background-image: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+  background-size: 400% 400%; /* Ensures the gradient is large enough for animation */
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: rainbow 1s linear infinite;
+}
+
+@keyframes rainbow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}

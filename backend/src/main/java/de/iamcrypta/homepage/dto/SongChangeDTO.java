@@ -13,8 +13,9 @@ public class SongChangeDTO {
     private String spotifySongId;
     private boolean isDeleted;
     private boolean isAdded;
+    private String artists;
 
-    public SongChangeDTO(String addedBy, Date changeOccurredAt, boolean isLocalTrack, int durationMs, String songName, String spotifyExternalUrl, String spotifySongId, boolean isDeleted, boolean isAdded) {
+    public SongChangeDTO(String addedBy, Date changeOccurredAt, boolean isLocalTrack, int durationMs, String songName, String spotifyExternalUrl, String spotifySongId, boolean isDeleted, boolean isAdded, String artists) {
         this.addedBy = addedBy;
         this.changeOccurredAt = changeOccurredAt;
         this.isLocalTrack = isLocalTrack;
@@ -24,6 +25,7 @@ public class SongChangeDTO {
         this.spotifySongId = spotifySongId;
         this.isDeleted = isDeleted;
         this.isAdded = isAdded;
+        this.artists = artists;
     }
 
     public String getAddedBy() {
@@ -98,6 +100,14 @@ public class SongChangeDTO {
         isAdded = added;
     }
 
+    public String getArtists() {
+        return artists;
+    }
+
+    public void setArtists(String artists) {
+        this.artists = artists;
+    }
+
     @Override
     public String toString() {
         return "SongChangeDTO{" +
@@ -110,6 +120,7 @@ public class SongChangeDTO {
                 ", spotifySongId='" + spotifySongId + '\'' +
                 ", isDeleted=" + isDeleted +
                 ", isAdded=" + isAdded +
+                ", artists='" + artists + '\'' +
                 '}';
     }
 }

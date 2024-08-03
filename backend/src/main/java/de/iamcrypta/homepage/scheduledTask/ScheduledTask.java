@@ -53,6 +53,7 @@ public class ScheduledTask {
         List<SongTemp> tempWithWrongNames = songMapper.convertAllPlaylistTracksToSongTemp(tracks);
         logger.info("Created a list of SongTemp from PlaylistTrack to put into database");
 
+        // Convert the spotify id to proper names
         List<SongTemp> temp = Util.fixSongAddedByNames(tempWithWrongNames);
 
         // Put all temp in db

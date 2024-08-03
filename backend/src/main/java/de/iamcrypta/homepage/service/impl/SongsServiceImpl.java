@@ -49,8 +49,8 @@ public class SongsServiceImpl implements SongsService {
     @Override
     @Transactional
     public void deleteListOfSongs(List<Song> songs) {
-        for(Song s: songs){
-            songsRepository.deleteSongBy(s.getAddedBy(), s.getDateAdded(), s.isLocalTrack(), s.getDurationMs(), s.getSongName(), s.getSpotifyExternalUrl(), s.getSpotifySongId());
+        for (Song s : songs) {
+            songsRepository.deleteSongBy(s.getAddedBy(), s.getDateAdded(), s.isLocalTrack(), s.getDurationMs(), s.getSongName(), s.getSpotifyExternalUrl(), s.getSpotifySongId(), s.getArtists());
         }
     }
 
