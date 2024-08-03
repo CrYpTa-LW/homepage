@@ -2,6 +2,7 @@ package de.iamcrypta.homepage.model;
 
 import jakarta.persistence.*;
 
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
@@ -53,8 +54,7 @@ public class SongChange {
             this.spotifySongId = spotifySongId;
         }
         this.addedBy = addedBy;
-        // TODO: change to one day before
-        this.changeOccurredAt = new Date();
+        this.changeOccurredAt = new Date(System.currentTimeMillis() - 1000*60*60*24);
         this.isLocalTrack = isLocalTrack;
         this.durationMs = durationMs;
         this.songName = songName;
