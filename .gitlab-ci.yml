@@ -21,6 +21,9 @@ stages:          # List of stages for jobs, and their order of execution
   - test
   - deploy
 
+before_script:
+  - apk add --no-cache bash
+
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
   script:
