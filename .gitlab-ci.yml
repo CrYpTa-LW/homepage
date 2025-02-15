@@ -47,3 +47,7 @@ deploy-job:      # This job runs in the deploy stage.
   script:
     - echo "Deploying application..."
     - echo "Application successfully deployed."
+
+variables:
+  GIT_CURL_VERBOSE: 1
+  GIT_TRACE: 1
