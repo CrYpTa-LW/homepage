@@ -16,7 +16,6 @@
 # This specific template is located at:
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
 
-image: alpine:latest
 
 stages:          # List of stages for jobs, and their order of execution
   - build
@@ -50,8 +49,16 @@ lint-test-job:   # This job also runs in the test stage.
     - sleep 10
     - echo "No lint issues found."
 
-deploy-job:      # This job runs in the deploy stage.
+deploy-dev-job:      # This job runs in the deploy stage.
+  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  environment: dev
+  before_script:
+    - apk add --no-cache bash
+  script:
+    - echo "Deploying application..."
+    - echo "Application successfully deployed."
 
+deploy-production-job:      # This job runs in the deploy stage.
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
   environment: production
   before_script:
@@ -60,6 +67,3 @@ deploy-job:      # This job runs in the deploy stage.
     - echo "Deploying application..."
     - echo "Application successfully deployed."
 
-variables:
-  GIT_CURL_VERBOSE: 1
-  GIT_TRACE: 1
