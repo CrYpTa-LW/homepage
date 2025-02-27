@@ -8,7 +8,6 @@ import de.iamcrypta.homepage.model.SongTemp;
 import de.iamcrypta.homepage.util.Util;
 import org.springframework.stereotype.Component;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistTrack;
-import se.michaelthelin.spotify.model_objects.specification.Track;
 
 import java.time.ZoneOffset;
 import java.util.ArrayList;
@@ -76,7 +75,7 @@ public class SongMapper {
         return temp;
     }
 
-    public SongChange convertSongToSongChange(Song song, boolean isDeleted, boolean isAdded) {
+    private SongChange convertSongToSongChange(Song song, boolean isDeleted, boolean isAdded) {
         return new SongChange(song.getAddedBy(),
                 song.isLocalTrack(),
                 song.getDurationMs(),
